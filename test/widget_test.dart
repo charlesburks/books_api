@@ -9,14 +9,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:books_api/models/books_model.dart';
-import 'package:books_api/providers/request_provider.dart';
+import 'package:books_api/helpers/request_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
 
 Future<String> loadAsset(String value) async {
@@ -27,7 +26,7 @@ Future<String> loadAsset(String value) async {
 void main() {
   setUpAll(() => WidgetsFlutterBinding.ensureInitialized());
   test('request_provider_test', () {
-    RequestProvider provider = RequestProvider();
+    RequestUtil provider = RequestUtil();
     const initialString = ' My Example Here ';
     var request = provider.buildRequest(initialString);
     expect(request.query, 'q=my%2Bexample%2Bhere');
@@ -43,7 +42,7 @@ void main() {
   });
 
   test('books_mock_build', () async {
-    RequestProvider provider = RequestProvider();
+    RequestUtil provider = RequestUtil();
     provider.client = MockClient((request) async {
       const mockLocation = 'assets/mocks/books_mock.json';
       String mockJson = await loadAsset(mockLocation);
