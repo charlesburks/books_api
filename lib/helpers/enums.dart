@@ -1,0 +1,4 @@
+enum ContnetState {
+  loaded,
+  loading,
+}
