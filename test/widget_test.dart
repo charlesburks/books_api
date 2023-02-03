@@ -5,26 +5,53 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:books_api/models/books_model.dart';
+import 'package:books_api/providers/request_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
+import 'package:http/testing.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:http/http.dart' as http;
 
-import 'package:books_api/main.dart';
+Future<String> loadAsset(String value) async {
+  return await rootBundle.loadString(value);
+}
 
+@GenerateMocks([http.Client])
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  setUpAll(() => WidgetsFlutterBinding.ensureInitialized());
+  test('request_provider_test', () {
+    RequestProvider provider = RequestProvider();
+    const initialString = ' My Example Here ';
+    var request = provider.buildRequest(initialString);
+    expect(request.query, 'q=my%2Bexample%2Bhere');
+    expect(request.host, 'openlibrary.org');
+    expect(request.path, '/search.json');
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  test('books_model_build', () async {
+    const mockLocation = 'assets/mocks/books_mock.json';
+    final mockJson = await loadAsset(mockLocation);
+    BooksModel model = BooksModel.fromJson(jsonDecode(mockJson));
+    expect(model.docs.length, 2);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  test('books_mock_build', () async {
+    RequestProvider provider = RequestProvider();
+    provider.client = MockClient((request) async {
+      const mockLocation = 'assets/mocks/books_mock.json';
+      String mockJson = await loadAsset(mockLocation);
+      return Response(mockJson, 200, headers: {
+        HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
+      });
+    });
+    final books = await provider.fetchBookData('example');
+    expect(books?.docs.length, 2);
   });
 }
