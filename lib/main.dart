@@ -1,5 +1,6 @@
 import 'package:books_api/helpers/enums.dart';
 import 'package:books_api/providers/search_provider.dart';
+import 'package:books_api/views/detail_page.dart';
 import 'package:books_api/views/search_list.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
     SearchProvider provider = context.watch<SearchProvider>();
     return Scaffold(
         appBar: EasySearchBar(
-            title: const Text('Search Book'),
+            title: const Text('Search a Book'),
             onSearch: (value) async => await provider.fetchModels(value)),
         body: provider.state == ContnetState.loading
             ? const Center(
@@ -32,6 +33,10 @@ class HomePage extends StatelessWidget {
               )
             : SearchList(
                 booksModel: provider.booksModel,
-                onSelected: (v) => print('selected')));
+                onSelected: (book) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailPage(bookModel: book)),
+                    )));
   }
 }
