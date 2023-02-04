@@ -1,18 +1,9 @@
 import 'package:books_api/models/book_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class DetailPage extends StatelessWidget {
   final BookModel bookModel;
   const DetailPage({super.key, required this.bookModel});
-
-  int _getListCount() {
-    var count = 4; //title, year, pages, author
-    count += bookModel.id_amazon?.length ?? 0;
-    count += bookModel.id_wikidata?.length ?? 0;
-    return count;
-  }
 
   Widget _getTitleRow(String key, String value) => Padding(
         padding: const EdgeInsets.all(5.0),
@@ -31,7 +22,7 @@ class DetailPage extends StatelessWidget {
                 )
               ],
             ),
-            Divider(
+            const Divider(
               color: Colors.black,
               height: 1,
             )

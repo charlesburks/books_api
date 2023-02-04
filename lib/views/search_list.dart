@@ -1,5 +1,6 @@
 import 'package:books_api/models/book_model.dart';
 import 'package:books_api/models/books_model.dart';
+import 'package:books_api/views/search_tile.dart';
 import 'package:flutter/material.dart';
 
 class SearchList extends StatelessWidget {
@@ -15,18 +16,8 @@ class SearchList extends StatelessWidget {
     return ListView.separated(
         itemBuilder: ((context, index) {
           BookModel model = booksModel!.docs[index];
-          final title = model.title;
-          final author = model.author_name.first;
-          final year = model.first_publish_year;
-          return InkWell(
-            onTap: () => onSelected(model),
-            child: ListTile(
-              title: Text('Title: $title'),
-              subtitle: Text('Author: $author\nYear Published: $year'),
-              isThreeLine: true,
-              trailing: const Icon(Icons.chevron_right),
-            ),
-          );
+          return SearchTile(
+              bookModel: model, onSelected: () => onSelected(model));
         }),
         separatorBuilder: ((context, index) => Container(
               color: Colors.grey[200],
