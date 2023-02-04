@@ -10,7 +10,7 @@ class BookModel {
   num? number_of_pages_median;
   List<String>? id_wikidata;
   List<String>? id_amazon;
-  List<String> author_name;
+  List<String>? author_name;
 
   BookModel(
     this.key,

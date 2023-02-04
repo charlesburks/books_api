@@ -27,6 +27,7 @@ class RequestUtil {
     } catch (e) {
       debugPrint(e.toString());
     }
+    client.close();
     return null;
   }
 }

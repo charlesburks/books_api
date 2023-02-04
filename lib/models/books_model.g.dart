@@ -13,10 +13,3 @@ BooksModel _$BooksModelFromJson(Map<String, dynamic> json) => BooksModel(
       json['num_found'] as num,
       json['q'] as String,
     );
-
-Map<String, dynamic> _$BooksModelToJson(BooksModel instance) =>
-    <String, dynamic>{
-      'docs': instance.docs,
-      'num_found': instance.num_found,
-      'q': instance.q,
-    };
