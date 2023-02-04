@@ -42,26 +42,28 @@ class DetailPage extends StatelessWidget {
           maxLines: 1,
         ),
       ),
-      body: Column(
-        children: [
-          _getTitleRow('Author', bookModel.author_name?.first ?? 'NA'),
-          _getTitleRow('Year Published',
-              bookModel.first_publish_year?.toString() ?? 'NA'),
-          ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return _getTitleRow('WIKI:', bookModel.id_wikidata![index]);
-              },
-              itemCount: bookModel.id_wikidata?.length ?? 0),
-          ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return _getTitleRow('Amazon:', bookModel.id_amazon![index]);
-              },
-              itemCount: bookModel.id_amazon?.length ?? 0)
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _getTitleRow('Author', bookModel.author_name?.first ?? 'NA'),
+            _getTitleRow('Year Published',
+                bookModel.first_publish_year?.toString() ?? 'NA'),
+            ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return _getTitleRow('WIKI:', bookModel.id_wikidata![index]);
+                },
+                itemCount: bookModel.id_wikidata?.length ?? 0),
+            ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return _getTitleRow('Amazon:', bookModel.id_amazon![index]);
+                },
+                itemCount: bookModel.id_amazon?.length ?? 0)
+          ],
+        ),
       ),
     );
   }
