@@ -10,7 +10,7 @@ class SearchTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = bookModel.title;
-    final author = bookModel.author_name.first;
+    final author = bookModel.author_name?.first ?? 'NA';
     final year = bookModel.first_publish_year;
     return InkWell(
       onTap: onSelected,

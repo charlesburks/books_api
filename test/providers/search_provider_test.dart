@@ -10,8 +10,6 @@ void main() {
     expect(provider.state, ContnetState.loaded);
     expect(provider.booksModel, null);
     await provider.fetchModels('lord of the rings');
-    expect(provider.booksModel, null);
-    await provider.fetchModels('');
-    expect(provider.booksModel?.q, '');
+    expect(provider.booksModel?.q, 'lord+of+the+rings');
   });
 }

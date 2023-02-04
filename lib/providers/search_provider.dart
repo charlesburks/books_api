@@ -8,7 +8,6 @@ class SearchProvider extends ChangeNotifier {
   ContnetState get state => _state;
   BooksModel? _booksModel;
   BooksModel? get booksModel => _booksModel;
-  final RequestUtil _util = RequestUtil();
 
   void _clearSearch() {
     _booksModel = null;
@@ -16,10 +15,12 @@ class SearchProvider extends ChangeNotifier {
   }
 
   Future<void> fetchModels(String searchValue) async {
+    if (searchValue.isEmpty) return;
+    final RequestUtil util = RequestUtil();
     _clearSearch();
     _state = ContnetState.loading;
     notifyListeners();
-    final response = await _util.fetchBookData(searchValue);
+    final response = await util.fetchBookData(searchValue);
     if (response != null) {
       _booksModel = response;
     }

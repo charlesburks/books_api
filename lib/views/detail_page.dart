@@ -44,7 +44,7 @@ class DetailPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          _getTitleRow('Author', bookModel.author_name.first),
+          _getTitleRow('Author', bookModel.author_name?.first ?? 'NA'),
           _getTitleRow('Year Published',
               bookModel.first_publish_year?.toString() ?? 'NA'),
           ListView.builder(
