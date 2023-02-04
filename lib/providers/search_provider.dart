@@ -8,7 +8,7 @@ class SearchProvider extends ChangeNotifier {
   ContnetState get state => _state;
   BooksModel? _booksModel;
   BooksModel? get booksModel => _booksModel;
-  RequestUtil _util = RequestUtil();
+  final RequestUtil _util = RequestUtil();
 
   void _clearSearch() {
     _booksModel = null;

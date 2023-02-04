@@ -17,6 +17,7 @@ class SearchTile extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: ListTile(
+          key: Key(bookModel.key),
           title: Text('Title: $title'),
           subtitle: Text('Author: $author\nYear Published: $year'),
           isThreeLine: true,

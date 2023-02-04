@@ -1,3 +1,4 @@
+import 'package:books_api/helpers/key_util.dart' as keys;
 import 'package:books_api/models/book_model.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,7 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key(keys.detialsPage),
       appBar: AppBar(
         title: Text(
           bookModel.title,

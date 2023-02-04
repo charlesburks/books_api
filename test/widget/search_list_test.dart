@@ -25,6 +25,8 @@ void main() {
         ),
       ),
     ));
+    Finder tile = find.byKey(Key(booksModel.docs.first.key));
+    await tester.press(tile);
     await expectLater(find.byType(SearchList),
         matchesGoldenFile('goldens/search_list_happy_state.png'));
   });
